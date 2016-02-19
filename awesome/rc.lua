@@ -14,6 +14,10 @@ local menubar = require("menubar")
 -- Load Debian menu entries
 require("debian.menu")
 
+-- My require
+-- local blingbling = require("blingbling")
+local cal = require("cal")
+
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
@@ -197,6 +201,7 @@ for s = 1, screen.count() do
     local right_layout = wibox.layout.fixed.horizontal()
     if s == 1 then right_layout:add(wibox.widget.systray()) end
     right_layout:add(mytextclock)
+    cal.register(mytextclock, "<b>%s</b>")
     right_layout:add(mylayoutbox[s])
 
     -- Now bring it all together (with the tasklist in the middle)
