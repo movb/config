@@ -13,7 +13,6 @@ set clipboard=unnamed
 set path+=**
 set wildmenu
 
-filetype plugin indent on
 
 " command! MakeTags !ctags -R .
 
@@ -49,3 +48,9 @@ filetype plugin indent on
  " this will conveniently prompt you to install them.
  NeoBundleCheck
 " }}}
+
+syntax on
+filetype plugin indent on
+set expandtab
+set shiftwidth=4
+set softtabstop=4
