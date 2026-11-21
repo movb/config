@@ -1,0 +1,5 @@
+#!/bin/sh
+# tmux status-right helper: agent counts written by the supervisor poller; flags a stale file.
+f="$HOME/.local/state/agent-supervisor/tmux-status"
+[ -f "$f" ] || exit 0
+if [ $(( $(date +%s) - $(stat -c %Y "$f") )) -lt 300 ]; then cat "$f"; else printf '#[fg=colour203]agents: poller stale#[default]'; fi

@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+kind="${1:-}"
+target="${2:-}"
+park_session="__parked"
+
+if [[ -z "$kind" || -z "$target" ]]; then
+  echo "usage: tmux-park pane|window <tmux-target>" >&2
+  exit 2
+fi
+
+if ! tmux has-session -t "$park_session" 2>/dev/null; then
+  tmux new-session -d -s "$park_session" -n parked
+fi
+
+case "$kind" in
+  pane)
+    tmux break-pane -d -s "$target" -t "$park_session:"
+    tmux display-message "Pane detached to $park_session"
+    ;;
+  window)
+    tmux move-window -d -s "$target" -t "$park_session:"
+    tmux display-message "Window detached to $park_session"
+    ;;
+  *)
+    echo "unknown tmux park kind: $kind" >&2
+    exit 2
+    ;;
+esac
